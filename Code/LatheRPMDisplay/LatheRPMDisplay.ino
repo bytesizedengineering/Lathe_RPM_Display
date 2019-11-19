@@ -8,10 +8,18 @@
 #define SEGMENT_DP 13
 
 #define DIGIT_1 7
+#define DIGIT_2 6
+#define DIGIT_3 5
+#define DIGIT_4 4
 
+int segments[]={SEGMENT_A,SEGMENT_B,SEGMENT_C,SEGMENT_D,SEGMENT_E,SEGMENT_F,SEGMENT_G,SEGMENT_DP};
+int digits[]={DIGIT_1,DIGIT_2,DIGIT_3,DIGIT_4};
 
 void setup() {
-  
+  for(int i=0; i<7; i++){
+		pinMode(segments[i],OUTPUT);
+  }
+  /*
   pinMode(SEGMENT_A, OUTPUT);
   pinMode(SEGMENT_B, OUTPUT);
   pinMode(SEGMENT_C, OUTPUT);
@@ -20,51 +28,23 @@ void setup() {
   pinMode(SEGMENT_F, OUTPUT);
   pinMode(SEGMENT_G, OUTPUT);
   pinMode(SEGMENT_DP, OUTPUT);
+  */
+  for(int i=0; i<4; i++){
+		pinMode(digits[i],OUTPUT);
+  }
   
-  pinMode(DIGIT_1, OUTPUT);
 }
 
 void loop() {
-	digitalWrite(DIGIT_1, HIGH);
 	
-	digitalWrite(SEGMENT_A,HIGH);
-	delay(500);
-	digitalWrite(SEGMENT_A,LOW);
-	delay(500);
-	
-	digitalWrite(SEGMENT_B,HIGH);
-	delay(500);
-	digitalWrite(SEGMENT_B,LOW);
-	delay(500);
-	
-	digitalWrite(SEGMENT_C,HIGH);
-	delay(500);
-	digitalWrite(SEGMENT_C,LOW);
-	delay(500);
-	
-	digitalWrite(SEGMENT_D,HIGH);
-	delay(500);
-	digitalWrite(SEGMENT_D,LOW);
-	delay(500);
-	
-	digitalWrite(SEGMENT_E,HIGH);
-	delay(500);
-	digitalWrite(SEGMENT_E,LOW);
-	delay(500);
-	
-	digitalWrite(SEGMENT_F,HIGH);
-	delay(500);
-	digitalWrite(SEGMENT_F,LOW);
-	delay(500);
-	
-	digitalWrite(SEGMENT_G,HIGH);
-	delay(500);
-	digitalWrite(SEGMENT_G,LOW);
-	delay(500);
-	
-	digitalWrite(SEGMENT_DP,HIGH);
-	delay(500);
-	digitalWrite(SEGMENT_DP,LOW);
-	delay(500);
-
+	for(int i=0; i<4; i++){
+		digitalWrite(digits[i], HIGH);
+		for(int j=0; j<7; j++){
+			digitalWrite(segments[j],HIGH);
+			delay(500);
+			digitalWrite(segments[j],LOW);
+			delay(500);
+		}
+		digitalWrite(digits[i], LOW);
+	}
 }
