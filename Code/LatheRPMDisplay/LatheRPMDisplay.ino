@@ -16,6 +16,9 @@
 
 int segments[]={SEGMENT_A, SEGMENT_B, SEGMENT_C, SEGMENT_D, SEGMENT_E, SEGMENT_F, SEGMENT_G, SEGMENT_DP};
 int digits[]={DIGIT_1,DIGIT_2,DIGIT_3,DIGIT_4};
+unsigned long stopWatch = 0;
+int rpm = 0;
+volatile int count = 0;
 
 void setup() {
 	Serial.begin(9600);
@@ -27,17 +30,22 @@ void setup() {
 	for(int i=0; i<4; i++){
 		pinMode(digits[i],OUTPUT);
 		digitalWrite(digits[i],LOW);
-	}	
+	}
+	attachInterrupt(digitalPinToInterrupt(2), incrementCount, FALLING);	
 }
 
 void loop() {
-	displayValue(millis()/1000);
-	//displayValue(8673);
+	if(millis() - stopWatch > 2000){
+		rpm = count * 30; Serial.println(rpm);
+		count = 0;
+		stopWatch = millis();
+	}
 	
+	displayValue(rpm);	
 }
 
 void displayValue (int value){
-	if(value < 10000 && value > 0){
+	if(value < 10000 && value >= 0){
 		int tempVal = value;
 		int tempDigit = 0;
 		tempDigit = tempVal/1000; displayDigit(tempDigit); digitalWrite(digits[0], HIGH); delayMicroseconds(POV_DELAY); clear(); digitalWrite(digits[0], LOW); tempVal = tempVal - tempDigit*1000;
@@ -90,3 +98,8 @@ void displayDigit(int number){
 void clear(){
 		digitalWrite(SEGMENT_A,LOW); digitalWrite(SEGMENT_B,LOW); digitalWrite(SEGMENT_C,LOW); digitalWrite(SEGMENT_D,LOW); digitalWrite(SEGMENT_E,LOW); digitalWrite(SEGMENT_F,LOW); digitalWrite(SEGMENT_G,LOW);
 }
+
+void incrementCount(){
+	count++;
+}
+
