@@ -4,22 +4,27 @@
 #define SEGMENT_D 17
 #define SEGMENT_E 18
 #define SEGMENT_F 19
-#define SEGMENT_G 12
-#define SEGMENT_DP 13
+#define SEGMENT_G 13
+#define SEGMENT_DP 12
 
-#define DIGIT_1 7
-#define DIGIT_2 6
-#define DIGIT_3 5
-#define DIGIT_4 4
+#define DIGIT_1 5
+#define DIGIT_2 4
+#define DIGIT_3 7
+#define DIGIT_4 6
 
-#define POV_DELAY 250 // delay needed for persistance of vision
+#define POV_DELAY 250 // delay in microseconds needed for persistance of vision
+#define SAMPLE_TIME 2000 // millisecond delay between calculating rpm 
+#define PULSE_PER_REV 2 // number of pulses per revolution of spindle
 
 int segments[]={SEGMENT_A, SEGMENT_B, SEGMENT_C, SEGMENT_D, SEGMENT_E, SEGMENT_F, SEGMENT_G, SEGMENT_DP};
 int digits[]={DIGIT_1,DIGIT_2,DIGIT_3,DIGIT_4};
 unsigned long stopWatch = 0;
-int rpm = 0;
-volatile int count = 0;
 
+volatile int count = 0;
+int buffer[120];
+int bufferIndex=0;
+int rpm = 0;
+const int scaleFactor = 60000/SAMPLE_TIME/PULSE_PER_REV; // Multiply the pulse count by this value to scale up to RPM. This is also the resolution of RPM calculated.
 void setup() {
 	Serial.begin(9600);
 	for(int i=0; i<8; i++){
@@ -31,16 +36,19 @@ void setup() {
 		pinMode(digits[i],OUTPUT);
 		digitalWrite(digits[i],LOW);
 	}
+	
+	for(int i=0; i<120; i++){
+		buffer[i]=0;
+	}
 	attachInterrupt(digitalPinToInterrupt(2), incrementCount, FALLING);	
 }
 
 void loop() {
-	if(millis() - stopWatch > 2000){
-		rpm = count * 30; Serial.println(rpm);
+		if(millis() - stopWatch > SAMPLE_TIME){
+		rpm = count*scaleFactor; //Serial.println(rpm);
 		count = 0;
 		stopWatch = millis();
 	}
-	
 	displayValue(rpm);	
 }
 

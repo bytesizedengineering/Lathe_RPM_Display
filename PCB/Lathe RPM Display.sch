@@ -5,9 +5,9 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
-Title ""
-Date ""
-Rev ""
+Title "Lathe RPM Display"
+Date "2020-01-05"
+Rev "A"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -545,27 +545,25 @@ $EndComp
 Wire Wire Line
 	10350 6000 10350 5950
 Wire Wire Line
-	6750 4250 4100 4250
+	8950 5250 4100 5250
 Wire Wire Line
-	4100 4250 4100 2150
+	4100 5250 4100 2150
 Wire Wire Line
 	4100 2150 4350 2150
 Wire Wire Line
 	4350 2050 4000 2050
 Wire Wire Line
-	4000 2050 4000 4750
+	4000 2050 4000 5750
 Wire Wire Line
-	4000 4750 7850 4750
+	4000 5750 10050 5750
 Wire Wire Line
 	4350 1950 3900 1950
 Wire Wire Line
-	3900 1950 3900 5250
+	3900 1950 3900 4250
 Wire Wire Line
-	3900 5250 8950 5250
+	7850 4750 3800 4750
 Wire Wire Line
-	10050 5750 3800 5750
-Wire Wire Line
-	3800 5750 3800 1850
+	3800 4750 3800 1850
 Wire Wire Line
 	3800 1850 4350 1850
 $Comp
@@ -662,12 +660,6 @@ Wire Wire Line
 	5750 3850 6050 3850
 Connection ~ 6050 3850
 Wire Wire Line
-	5550 3850 4300 3850
-Wire Wire Line
-	4300 3850 4300 2750
-Wire Wire Line
-	4300 2750 4350 2750
-Wire Wire Line
 	4200 3950 4200 2650
 Wire Wire Line
 	4200 2650 4350 2650
@@ -687,4 +679,53 @@ NoConn ~ 5350 1550
 NoConn ~ 5350 1450
 NoConn ~ 4950 1050
 NoConn ~ 5050 1050
+Wire Wire Line
+	3900 4250 6750 4250
+$Comp
+L Connector_Generic:Conn_01x02 J1
+U 1 1 5E11F0AC
+P 3300 3100
+F 0 "J1" H 3300 2900 50  0000 C CNN
+F 1 "Conn_01x02" H 2750 3050 50  0000 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical" H 3300 3100 50  0001 C CNN
+F 3 "~" H 3300 3100 50  0001 C CNN
+	1    3300 3100
+	1    0    0    1   
+$EndComp
+$Comp
+L power:+5V #PWR0105
+U 1 1 5E11F252
+P 3050 2950
+F 0 "#PWR0105" H 3050 2800 50  0001 C CNN
+F 1 "+5V" H 3065 3123 50  0000 C CNN
+F 2 "" H 3050 2950 50  0001 C CNN
+F 3 "" H 3050 2950 50  0001 C CNN
+	1    3050 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0106
+U 1 1 5E11F285
+P 3050 3150
+F 0 "#PWR0106" H 3050 2900 50  0001 C CNN
+F 1 "GND" H 3055 2977 50  0000 C CNN
+F 2 "" H 3050 3150 50  0001 C CNN
+F 3 "" H 3050 3150 50  0001 C CNN
+	1    3050 3150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3100 3000 3050 3000
+Wire Wire Line
+	3050 3000 3050 2950
+Wire Wire Line
+	3100 3100 3050 3100
+Wire Wire Line
+	3050 3100 3050 3150
+Wire Wire Line
+	5550 3850 4300 3850
+Wire Wire Line
+	4300 2750 4350 2750
+Wire Wire Line
+	4300 2750 4300 3850
 $EndSCHEMATC
